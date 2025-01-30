@@ -1,6 +1,11 @@
 ---
-const response = await fetch("http://localhost:8080/api/eventos");
-const eventos = await response.json();
+let eventos: any[] = [];
+try {
+  const response = await fetch("http://localhost:8080/api/eventos");
+  eventos = response.ok ? await response.json() : [];
+} catch (error) {
+  console.error(error);
+}
 ---
 
 <div id="carouselExample" class="carousel slide">
@@ -34,37 +39,75 @@ const eventos = await response.json();
     <span class="visually-hidden">Next</span>
   </button>
   <h2 style="text-align: center; margin-top: 1rem;">Boletos a la venta</h2>
+</div>
   <!---- renderizar tarjetas ----->
   <div class="grid">
     {
-      eventos.map((evento: any) => (
-        <div class="card" style="width: 15rem;">
-          <div class="card-body">
-            <h5 class="card-title">{evento.nombre}</h5>
-            <p class="card-text">{evento.descripcion}</p>
-            <p class="card-text">{evento.fecha}</p>
-            <p class="card-text">{evento.lugar}</p>
-            <p class="card-text">{evento.precio}</p>
-            <p class="card-text">{evento.cupo}</p>
-            <a href="#" class="btn btn-secondary">
-              Comprar
-            </a>
+      eventos.length > 0 ? (
+        eventos.map((evento: any) => (
+          <div class="card" style="width: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">{evento.nombre}</h5>
+              <p class="card-text">{evento.descripcion}</p>
+              <p class="card-text">{evento.fecha}</p>
+              <p class="card-text">{evento.lugar}</p>
+              <p class="card-text">{evento.precio}</p>
+              <p class="card-text">{evento.cupo}</p>
+              <a href="#" class="btn btn-secondary">
+                Comprar
+              </a>
+            </div>
           </div>
-        </div>
-      ))
+        ))
+      ) : (
+        <h3 style="text-align:center; margin-top:1rem; color:red">
+          Error al conectarse a la API
+        </h3>
+      )
     }
   </div>
-</div>
+<!---- seccion informativa ----->
+<section>
+  <hr style="margin-left: 2rem margin-right: 2rem;" />
+  <div class="container">
+    <div style="text-align: center;">
+      <h2>Facil de Comprar</h2>
+      <p>
+        Una forma facil de comprar tus boletos, sin pasarelas de pagos tediosas.
+      </p>
+      <h2>Recibe tu Boleto digital</h2>
+      <p>
+        Despues de realizar tu compra recibe tu boleto generado de forma
+        automatica, a tu correo electronico registrado, de este modo ahorremos
+        papel, y seamos mas ecologicos, de esta manera que sea digital.
+      </p>
+    </div>
+    <div>
+      <img src="../../public/dolar-grande.png" alt="" />
+    </div>
+  </div>
+</section>
 
 <style>
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem; /* Espaciado entre tarjetas */
-    padding: 10px;
+    padding: 20px;
     margin-left: 20px;
   }
   .card {
     margin-top: 30px;
+  }
+  p {
+    width: 50%;
+    margin: 0 auto;
+    text-align: justify;
+  }
+  .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
   }
 </style>
