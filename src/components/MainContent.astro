@@ -40,8 +40,9 @@ try {
   </button>
   <h2 style="text-align: center; margin-top: 1rem;">Boletos a la venta</h2>
 </div>
-  <!---- renderizar tarjetas ----->
-  <div class="grid">
+<!---- renderizar tarjetas ----->
+<div class="container-card">
+  <div class="flex-container">
     {
       eventos.length > 0 ? (
         eventos.map((evento: any) => (
@@ -66,17 +67,18 @@ try {
       )
     }
   </div>
+</div>
 <!---- seccion informativa ----->
 <section>
   <hr style="margin-left: 2rem margin-right: 2rem;" />
   <div class="container">
     <div style="text-align: center;">
       <h2>Facil de Comprar</h2>
-      <p>
+      <p class="info">
         Una forma facil de comprar tus boletos, sin pasarelas de pagos tediosas.
       </p>
       <h2>Recibe tu Boleto digital</h2>
-      <p>
+      <p class="info">
         Despues de realizar tu compra recibe tu boleto generado de forma
         automatica, a tu correo electronico registrado, de este modo ahorremos
         papel, y seamos mas ecologicos, de esta manera que sea digital.
@@ -89,17 +91,19 @@ try {
 </section>
 
 <style>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem; /* Espaciado entre tarjetas */
-    padding: 20px;
+  .container-card{
     margin-left: 20px;
+    margin-right: 10px;
+  }
+  .flex-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
   }
   .card {
     margin-top: 30px;
   }
-  p {
+  .info {
     width: 50%;
     margin: 0 auto;
     text-align: justify;
